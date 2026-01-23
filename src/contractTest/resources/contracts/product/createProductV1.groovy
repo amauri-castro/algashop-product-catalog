@@ -11,13 +11,34 @@ Contract.make {
         }
         urlPath("/api/v1/products") {
             body([
-                    name: "Notebook Legion",
-                    brand: "Lenovo",
-                    regularPrice: 1500.00,
-                    salePrice: 1000.00,
-                    enabled: true,
-                    categoryId: '019be330-5c35-7ef8-b59b-0cf73765a296',
-                    description: "A Gamer Notebook!"
+                    name: value(
+                            test("Notebook Legion"),
+                            stub(nonBlank())
+                    ),
+                    brand: value(
+                            test("Lenovo"),
+                            stub(nonBlank())
+                    ),
+                    regularPrice: value(
+                            test(1500.00),
+                            stub(number())
+                    ),
+                    salePrice: value(
+                            test(1000.00),
+                            stub(number())
+                    ),
+                    enabled: value(
+                            test(true),
+                            stub(anyBoolean())
+                    ),
+                    categoryId: value(
+                            test("019be330-5c35-7ef8-b59b-0cf73765a296"),
+                            stub(anyUuid())
+                    ),
+                    description: value(
+                            test("A Gamer Notebook!"),
+                            stub(optional(nonBlank()))
+                    )
             ])
         }
     }
@@ -29,17 +50,17 @@ Contract.make {
         body([
                 id: anyUuid(),
                 addedAt: anyIso8601WithOffset(),
-                name: "Notebook Legion",
-                brand: "Lenovo",
-                regularPrice: 1500.00,
-                salePrice: 1000.00,
+                name: fromRequest().body('$.name'),
+                brand: fromRequest().body('$.brand'),
+                regularPrice: fromRequest().body('$.regularPrice'),
+                salePrice: fromRequest().body('$.salePrice'),
                 inStock: false,
-                enabled: true,
+                enabled: fromRequest().body('$.enabled'),
                 category: [
-                        id: "019be330-5c35-7ef8-b59b-0cf73765a296",
+                        id: fromRequest().body('$.categoryId'),
                         name: "Notebook"
                 ],
-                description: "A Gamer Notebook!"
+                description: fromRequest().body('$.description')
         ])
     }
 }
