@@ -46,16 +46,12 @@ public class ProductBase {
         mockFilterProducts();
         mockCreateProduct();
         mockInvalidProductFindById();
+        mockInvalidProductDeleteById();
     }
 
-    private void mockInvalidProductFindById() {
-        Mockito.when(productQueryService.findById(invalidProductId))
-                .thenThrow(new ResourceNotFoundException());
-    }
-
-    private void mockCreateProduct() {
-        Mockito.when(productManagementApplicationService.create(Mockito.any(ProductInput.class)))
-                .thenReturn(validProductId);
+    private void mockValidProductFindById() {
+        Mockito.when(productQueryService.findById(validProductId))
+                .thenReturn(ProductDetailOutputTestDataBuilder.aProduct().id(validProductId).build());
     }
 
     private void mockFilterProducts() {
@@ -78,8 +74,18 @@ public class ProductBase {
                 });
     }
 
-    private void mockValidProductFindById() {
-        Mockito.when(productQueryService.findById(validProductId))
-                .thenReturn(ProductDetailOutputTestDataBuilder.aProduct().id(validProductId).build());
+    private void mockCreateProduct() {
+        Mockito.when(productManagementApplicationService.create(Mockito.any(ProductInput.class)))
+                .thenReturn(validProductId);
     }
+
+    private void mockInvalidProductFindById() {
+        Mockito.when(productQueryService.findById(invalidProductId))
+                .thenThrow(new ResourceNotFoundException());
+    }
+
+    private void mockInvalidProductDeleteById() {
+        Mockito.doThrow(new ResourceNotFoundException()).when(productManagementApplicationService).disable(invalidProductId);
+    }
+
 }
