@@ -43,11 +43,8 @@ public class ProductBase {
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
 
         mockValidProductFindById();
-
         mockFilterProducts();
-
         mockCreateProduct();
-
         mockInvalidProductFindById();
     }
 
