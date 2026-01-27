@@ -1,17 +1,16 @@
 package com.algashop.product.catalog.presentation;
 
 
+import com.algashop.product.catalog.application.ResourceNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ProblemDetail;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -47,5 +46,15 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         problemDetail.setProperty("fields", fieldErrors);
 
         return super.handleExceptionInternal(ex,problemDetail, headers, status, request);
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleProductNotFoundException(ResourceNotFoundException exception) {
+        ProblemDetail problemDetail = ProblemDetail.forStatus(HttpStatus.NOT_FOUND);
+        problemDetail.setTitle("Not Found");
+        problemDetail.setDetail(exception.getMessage());
+        problemDetail.setType(URI.create("/errors/not-found"));
+
+        return problemDetail;
     }
 }
