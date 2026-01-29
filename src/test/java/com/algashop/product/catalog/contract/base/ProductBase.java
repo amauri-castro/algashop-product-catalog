@@ -1,5 +1,6 @@
 package com.algashop.product.catalog.contract.base;
 
+import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.ResourceNotFoundException;
 import com.algashop.product.catalog.application.product.management.ProductInput;
 import com.algashop.product.catalog.application.product.management.ProductManagementApplicationService;

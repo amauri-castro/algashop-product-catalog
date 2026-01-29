@@ -2,7 +2,7 @@ package com.algashop.product.catalog.presentation;
 
 import com.algashop.product.catalog.application.product.management.ProductInput;
 import com.algashop.product.catalog.application.product.management.ProductManagementApplicationService;
-import com.algashop.product.catalog.application.product.query.PageModel;
+import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.algashop.product.catalog.application.product.query.ProductQueryService;
 import jakarta.validation.Valid;
