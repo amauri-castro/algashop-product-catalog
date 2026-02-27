@@ -1,7 +1,7 @@
 package com.algashop.product.catalog.presentation;
 
 import com.algashop.product.catalog.application.category.management.CategoryInput;
-import com.algashop.product.catalog.application.category.management.CategoryManagementService;
+import com.algashop.product.catalog.application.category.management.CategoryManagementServiceApplicationService;
 import com.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import com.algashop.product.catalog.application.category.query.CategoryQueryService;
 import com.algashop.product.catalog.application.PageModel;
@@ -19,7 +19,7 @@ public class CategoryController {
 
 
     private final CategoryQueryService categoryQueryService;
-    private final CategoryManagementService categoryManagementService;
+    private final CategoryManagementServiceApplicationService categoryManagementServiceApplicationService;
 
     @GetMapping
     public PageModel<CategoryDetailOutput> filter(
@@ -32,7 +32,7 @@ public class CategoryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDetailOutput create(@RequestBody @Valid CategoryInput input) {
-        UUID categoryId = categoryManagementService.create(input);
+        UUID categoryId = categoryManagementServiceApplicationService.create(input);
         return categoryQueryService.findById(categoryId);
     }
 
@@ -44,14 +44,14 @@ public class CategoryController {
     @PutMapping("/{categoryId}")
     public CategoryDetailOutput update(@PathVariable UUID categoryId,
                                        @RequestBody @Valid CategoryInput input) {
-        categoryManagementService.update(categoryId, input);
+        categoryManagementServiceApplicationService.update(categoryId, input);
         return categoryQueryService.findById(categoryId);
     }
 
     @DeleteMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID categoryId) {
-        categoryManagementService.disable(categoryId);
+        categoryManagementServiceApplicationService.disable(categoryId);
     }
 
 }

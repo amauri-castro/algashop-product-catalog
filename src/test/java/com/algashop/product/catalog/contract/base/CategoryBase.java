@@ -2,7 +2,7 @@ package com.algashop.product.catalog.contract.base;
 
 import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.category.management.CategoryInput;
-import com.algashop.product.catalog.application.category.management.CategoryManagementService;
+import com.algashop.product.catalog.application.category.management.CategoryManagementServiceApplicationService;
 import com.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import com.algashop.product.catalog.application.category.query.CategoryOutputTestDataBuilder;
 import com.algashop.product.catalog.application.category.query.CategoryQueryService;
@@ -30,7 +30,7 @@ public class CategoryBase {
     private CategoryQueryService categoryQueryService;
 
     @MockitoBean
-    private CategoryManagementService categoryManagementService;
+    private CategoryManagementServiceApplicationService categoryManagementServiceApplicationService;
 
     public static final UUID validCategoryId = UUID.fromString("f5ab7a1e-37da-41e1-892b-a1d38275c2f2");
 
@@ -71,7 +71,7 @@ public class CategoryBase {
     }
 
     private void mockCreateCategory() {
-        Mockito.when(categoryManagementService.create(Mockito.any(CategoryInput.class)))
+        Mockito.when(categoryManagementServiceApplicationService.create(Mockito.any(CategoryInput.class)))
                 .thenReturn(createdCategoryId);
         Mockito.when(categoryQueryService.findById(createdCategoryId))
                 .thenReturn(CategoryOutputTestDataBuilder.aCategory().id(createdCategoryId).build());
