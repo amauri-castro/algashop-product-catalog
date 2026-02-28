@@ -4,6 +4,7 @@ import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.ResourceNotFoundException;
 import com.algashop.product.catalog.application.product.query.ProductDetailOutput;
 import com.algashop.product.catalog.application.product.query.ProductQueryService;
+import com.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import com.algashop.product.catalog.application.utility.Mapper;
 import com.algashop.product.catalog.domain.model.product.Product;
 import com.algashop.product.catalog.domain.model.product.ProductNotFoundException;
@@ -28,7 +29,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public PageModel<ProductDetailOutput> filter(Integer size, Integer number) {
+    public PageModel<ProductSummaryOutput> filter(Integer size, Integer number) {
         return null;
     }
 }

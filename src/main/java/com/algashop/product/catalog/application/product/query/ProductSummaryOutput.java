@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDetailOutput {
+public class ProductSummaryOutput {
 
     private UUID id;
     private OffsetDateTime addedAt;
@@ -24,7 +24,8 @@ public class ProductDetailOutput {
     private Boolean inStock;
     private Boolean enabled;
     private CategoryMinimalOutput category;
-    private String description;
+
+    private String shorDescription;
 
     private String slug;
     private Boolean hasDiscount;
