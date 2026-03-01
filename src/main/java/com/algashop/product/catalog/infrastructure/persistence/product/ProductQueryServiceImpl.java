@@ -3,6 +3,7 @@ package com.algashop.product.catalog.infrastructure.persistence.product;
 import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.ResourceNotFoundException;
 import com.algashop.product.catalog.application.product.query.ProductDetailOutput;
+import com.algashop.product.catalog.application.product.query.ProductFilter;
 import com.algashop.product.catalog.application.product.query.ProductQueryService;
 import com.algashop.product.catalog.application.product.query.ProductSummaryOutput;
 import com.algashop.product.catalog.application.utility.Mapper;
@@ -10,6 +11,8 @@ import com.algashop.product.catalog.domain.model.product.Product;
 import com.algashop.product.catalog.domain.model.product.ProductNotFoundException;
 import com.algashop.product.catalog.domain.model.product.ProductRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,7 +32,9 @@ public class ProductQueryServiceImpl implements ProductQueryService {
     }
 
     @Override
-    public PageModel<ProductSummaryOutput> filter(Integer size, Integer number) {
-        return null;
+    public PageModel<ProductSummaryOutput> filter(ProductFilter filter) {
+        Page<Product> products = productRepository.findAll(PageRequest.of(filter.getPage(), filter.getSize()));
+        Page<ProductSummaryOutput> productOutputs = products.map(p -> mapper.convert(p, ProductSummaryOutput.class));
+        return PageModel.of(productOutputs);
     }
 }
