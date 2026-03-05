@@ -142,7 +142,7 @@ public class ProductQueryServiceImpl implements ProductQueryService {
             ));
         }
 
-        if (StringUtils.isNoneBlank(filter.getTerm())) {
+        if (StringUtils.isNotBlank(filter.getTerm())) {
             query.addCriteria(
                     TextCriteria.forDefaultLanguage().matching(filter.getTerm())
             );
