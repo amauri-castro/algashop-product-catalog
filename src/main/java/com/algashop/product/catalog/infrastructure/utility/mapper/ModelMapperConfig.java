@@ -47,7 +47,7 @@ public class ModelMapperConfig {
                                     .map(Product::getName, ProductSummaryOutput::setSlug);
 
                             mapping.using(fromStringToShortStringConverter)
-                                    .map(Product::getDescription, ProductSummaryOutput::setShorDescription);
+                                    .map(Product::getDescription, ProductSummaryOutput::setShortDescription);
                         }
                 )
         ;
