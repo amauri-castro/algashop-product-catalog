@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
-
 @DataMongoTest
 @Import(MongoConfig.class)
 @Slf4j
