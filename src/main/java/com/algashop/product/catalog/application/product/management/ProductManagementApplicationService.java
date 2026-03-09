@@ -1,6 +1,5 @@
 package com.algashop.product.catalog.application.product.management;
 
-import com.algashop.product.catalog.application.ResourceNotFoundException;
 import com.algashop.product.catalog.domain.model.category.Category;
 import com.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import com.algashop.product.catalog.domain.model.category.CategoryRepository;
@@ -63,9 +62,9 @@ public class ProductManagementApplicationService {
         product.setName(input.getName());
         product.setBrand(input.getBrand());
         product.setDescription(input.getDescription());
-        product.setRegularPrice(input.getRegularPrice());
-        product.setSalePrice(input.getSalePrice());
         product.setEnabled(input.getEnabled());
+
+        product.changePrice(input.getRegularPrice(), input.getSalePrice());
     }
 
     private Product findProduct(UUID productId) {
