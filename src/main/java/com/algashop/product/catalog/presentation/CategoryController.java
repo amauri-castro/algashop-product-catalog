@@ -1,7 +1,7 @@
 package com.algashop.product.catalog.presentation;
 
 import com.algashop.product.catalog.application.category.management.CategoryInput;
-import com.algashop.product.catalog.application.category.management.CategoryManagementServiceApplicationService;
+import com.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
 import com.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import com.algashop.product.catalog.application.category.query.CategoryFilter;
 import com.algashop.product.catalog.application.category.query.CategoryQueryService;
@@ -20,7 +20,7 @@ public class CategoryController {
 
 
     private final CategoryQueryService categoryQueryService;
-    private final CategoryManagementServiceApplicationService categoryManagementServiceApplicationService;
+    private final CategoryManagementApplicationService categoryManagementApplicationService;
 
     @GetMapping
     public PageModel<CategoryDetailOutput> filter(CategoryFilter categoryFilter) {
@@ -30,7 +30,7 @@ public class CategoryController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDetailOutput create(@RequestBody @Valid CategoryInput input) {
-        UUID categoryId = categoryManagementServiceApplicationService.create(input);
+        UUID categoryId = categoryManagementApplicationService.create(input);
         return categoryQueryService.findById(categoryId);
     }
 
@@ -42,14 +42,14 @@ public class CategoryController {
     @PutMapping("/{categoryId}")
     public CategoryDetailOutput update(@PathVariable UUID categoryId,
                                        @RequestBody @Valid CategoryInput input) {
-        categoryManagementServiceApplicationService.update(categoryId, input);
+        categoryManagementApplicationService.update(categoryId, input);
         return categoryQueryService.findById(categoryId);
     }
 
     @DeleteMapping("/{categoryId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID categoryId) {
-        categoryManagementServiceApplicationService.disable(categoryId);
+        categoryManagementApplicationService.disable(categoryId);
     }
 
 }
