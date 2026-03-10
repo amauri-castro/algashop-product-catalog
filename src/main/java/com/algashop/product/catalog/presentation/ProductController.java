@@ -63,4 +63,16 @@ public class ProductController {
         productManagementApplicationService.enable(productId);
     }
 
+    @PostMapping("/{productId}/restock")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void restock(@PathVariable UUID productId, @RequestBody @Valid ProductQuantityModel productQuantityModel) {
+        productManagementApplicationService.restock(productId, productQuantityModel.getQuantity());
+    }
+
+    @PostMapping("/{productId}/withdraw")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void withDraw(@PathVariable UUID productId, @RequestBody @Valid ProductQuantityModel productQuantityModel) {
+        productManagementApplicationService.withDraw(productId, productQuantityModel.getQuantity());
+    }
+
 }
