@@ -3,6 +3,20 @@ package com.algashop.product.catalog.domain.model.product;
 import java.util.UUID;
 
 public interface QuantityInStockAdjustment {
-    void increase(UUID productId, int quantity);
-    void decrease(UUID productId, int quantity);
+    Result increase(UUID productId, int quantity);
+    Result decrease(UUID productId, int quantity);
+
+    record Result(
+            UUID productId,
+            int previousQuantity,
+            int newQuantity
+    ) {
+        public boolean isOutStock() {
+            return newQuantity == 0 && previousQuantity != 0;
+        }
+
+        public boolean isRestocked() {
+            return newQuantity > 0 && previousQuantity == 0;
+        }
+    }
 }
