@@ -5,10 +5,7 @@ import org.springframework.cloud.contract.spec.Contract
 Contract.make {
     request {
         method DELETE()
-        headers {
-            accept 'application/json'
-        }
-        url("/api/v1/products/019bff63-8a93-7884-89aa-cf73116430ed")
+        urlPath("/api/v1/products/019bff63-8a93-7884-89aa-cf73116430ed/enable")
     }
     response {
         status 404
