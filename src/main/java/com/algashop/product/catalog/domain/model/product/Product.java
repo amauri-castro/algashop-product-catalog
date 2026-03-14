@@ -60,7 +60,7 @@ public class Product extends AbstractAggregateRoot<Product> {
     private OffsetDateTime addedAt;
 
     @LastModifiedDate
-    private OffsetDateTime updateAt;
+    private OffsetDateTime updatedAt;
 
     @CreatedBy
     private UUID createdByUserId;
