@@ -87,8 +87,13 @@ public class ProductBase {
     }
 
     private void mockCreateProduct() {
+        ProductDetailOutput productDetailOutput = ProductDetailOutputTestDataBuilder.aProduct()
+                .id(validProductId).inStock(false).build();
         Mockito.when(productManagementApplicationService.create(Mockito.any(ProductInput.class)))
-                .thenReturn(validProductId);
+                .thenReturn(productDetailOutput);
+
+        Mockito.when(productQueryService.findById(validProductId))
+                .thenReturn(productDetailOutput);
     }
 
     private void mockInvalidProductFindById() {
