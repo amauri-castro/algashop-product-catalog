@@ -8,6 +8,7 @@ import com.algashop.product.catalog.domain.model.category.CategoryRepository;
 import com.algashop.product.catalog.domain.model.product.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +36,8 @@ public class ProductManagementApplicationService {
 
     @CachePut(cacheNames = "algashop:products:v1", key = "#productId",
             condition = "#input.enabled == true")
+    @CacheEvict(cacheNames = "algashop:products:v1", key = "#productId",
+            condition = "#input.enabled == false")
     public ProductDetailOutput update(UUID productId, ProductInput input) {
         Product product = findProduct(productId);
         Category category = findCategory(input.getCategoryId());
@@ -44,6 +47,7 @@ public class ProductManagementApplicationService {
         return mapper.convert(product, ProductDetailOutput.class);
     }
 
+    @CacheEvict(cacheNames = "algashop:products:v1", key = "#productId")
     public void disable(UUID productId) {
         Product product = findProduct(productId);
         product.disable();
