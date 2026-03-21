@@ -40,16 +40,16 @@ public class ProductController {
     @GetMapping("/{productId}")
     public ResponseEntity<ProductDetailOutput> findById(@PathVariable UUID productId) {
 
-        if (productId.equals(UUID.fromString("946cea3b-d11d-4f11-b88d-3089b4e74087"))) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        if (Math.random() < 0.8) {
-            try {
-                Thread.sleep(Duration.ofSeconds(20));
-            } catch (Exception e) {
-            }
-        }
+//        if (productId.equals(UUID.fromString("946cea3b-d11d-4f11-b88d-3089b4e74087"))) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//        if (Math.random() < 0.5) {
+//            try {
+//                Thread.sleep(Duration.ofSeconds(20));
+//            } catch (Exception e) {
+//            }
+//        }
 
         ProductDetailOutput product = productQueryService.findById(productId);
         return ResponseEntity.ok()
