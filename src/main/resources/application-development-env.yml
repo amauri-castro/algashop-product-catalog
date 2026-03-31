@@ -24,3 +24,5 @@ algashop:
   data-load:
     enabled: true
     auto-delete: true
+  mapping:
+    image-store-url: http://localhost:/algashop-product-image
