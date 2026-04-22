@@ -1,11 +1,11 @@
 package com.algashop.product.catalog.presentation;
 
+import com.algashop.product.catalog.application.PageModel;
 import com.algashop.product.catalog.application.category.management.CategoryInput;
 import com.algashop.product.catalog.application.category.management.CategoryManagementApplicationService;
 import com.algashop.product.catalog.application.category.query.CategoryDetailOutput;
 import com.algashop.product.catalog.application.category.query.CategoryFilter;
 import com.algashop.product.catalog.application.category.query.CategoryQueryService;
-import com.algashop.product.catalog.application.PageModel;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.CacheControl;
@@ -21,7 +21,6 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
-@CrossOrigin("*")
 public class CategoryController {
 
 
