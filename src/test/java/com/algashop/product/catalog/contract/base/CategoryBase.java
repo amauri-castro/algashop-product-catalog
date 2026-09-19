@@ -46,8 +46,16 @@ public class CategoryBase {
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
 
         mockFilterCategories();
-        mockCreateCategory();
-        mockValidCategoryFindById();
+
+        Mockito.when(categoryQueryService.findById(validCategoryId))
+                .thenReturn(CategoryOutputTestDataBuilder.aCategory().id(validCategoryId).build());
+
+        Mockito.when(categoryManagementApplicationService.create(Mockito.any(CategoryInput.class)))
+                .thenReturn(createdCategoryId);
+
+        Mockito.when(categoryQueryService.findById(createdCategoryId))
+                .thenReturn(CategoryOutputTestDataBuilder.aCategory().id(createdCategoryId).build());
+
     }
 
 
@@ -71,15 +79,4 @@ public class CategoryBase {
                 });
     }
 
-    private void mockCreateCategory() {
-        Mockito.when(categoryManagementApplicationService.create(Mockito.any(CategoryInput.class)))
-                .thenReturn(createdCategoryId);
-        Mockito.when(categoryQueryService.findById(createdCategoryId))
-                .thenReturn(CategoryOutputTestDataBuilder.aCategory().id(createdCategoryId).build());
-    }
-
-    private void mockValidCategoryFindById() {
-        Mockito.when(categoryQueryService.findById(validCategoryId))
-                .thenReturn(CategoryOutputTestDataBuilder.aCategory().id(validCategoryId).build());
-    }
 }
