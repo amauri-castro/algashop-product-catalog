@@ -10,6 +10,7 @@ import com.algashop.product.catalog.application.product.query.ProductSummaryOutp
 import com.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import static com.algashop.product.catalog.infrastructure.security.SecurityAnnot
 @RestController
 @RequestMapping("/api/v1/products")
 @RequiredArgsConstructor
+@Slf4j
 public class ProductController {
 
     private final ProductQueryService productQueryService;
@@ -42,6 +44,7 @@ public class ProductController {
     @GetMapping("/{productId}")
     @CanReadProducts
     public ResponseEntity<ProductDetailOutput> findById(@PathVariable UUID productId) {
+        log.info("Get product {}", productId);
         ProductDetailOutput product = productQueryService.findById(productId);
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1)).cachePublic())
