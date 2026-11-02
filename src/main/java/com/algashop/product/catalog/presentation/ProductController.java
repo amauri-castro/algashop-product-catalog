@@ -10,6 +10,7 @@ import com.algashop.product.catalog.application.product.query.ProductSummaryOutp
 import com.algashop.product.catalog.domain.model.category.CategoryNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -43,8 +44,13 @@ public class ProductController {
 
     @GetMapping("/{productId}")
     @CanReadProducts
+    @SneakyThrows
     public ResponseEntity<ProductDetailOutput> findById(@PathVariable UUID productId) {
         log.info("Get product {}", productId);
+        if (Math.random() < 0.5) {
+            Thread.sleep(Duration.ofMillis(100));
+            throw new RuntimeException("Fake exception");
+        }
         ProductDetailOutput product = productQueryService.findById(productId);
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1)).cachePublic())
