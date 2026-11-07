@@ -47,10 +47,7 @@ public class ProductController {
     @SneakyThrows
     public ResponseEntity<ProductDetailOutput> findById(@PathVariable UUID productId) {
         log.info("Get product {}", productId);
-        if (Math.random() < 0.5) {
-            Thread.sleep(Duration.ofMillis(100));
-            throw new RuntimeException("Fake exception");
-        }
+        Thread.sleep(Duration.ofMillis(100));
         ProductDetailOutput product = productQueryService.findById(productId);
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(1)).cachePublic())
@@ -61,7 +58,10 @@ public class ProductController {
 
     @GetMapping
     @CanReadProducts
+    @SneakyThrows
     public PageModel<ProductSummaryOutput> filter(ProductFilter productFilter) {
+        log.info("Get filter products");
+        Thread.sleep(Duration.ofMillis(100));
         return productQueryService.filter(productFilter);
     }
 
